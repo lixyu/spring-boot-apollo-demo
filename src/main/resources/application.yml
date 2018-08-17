@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: consul-service-demo
+  profiles:
+    active: dev
+
+  cloud:
+    config:
+#      uri: http://localhost:9999
+      discovery:
+        enabled: false
+        serviceId: sc-earth-config-server
+      label: master
+      profile: pre
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+          prefer-ip-address: true
+          #这里是重写健康检查的endPoint，默认为 /health，重写是为了节省不必要的网络传输，只需要http 200状态码即可
+          health-check-path: /ok/health
+          heartbeat:
+            enabled: false
